@@ -1,42 +1,52 @@
 require "time"
 
-array = ["12:15PM-02:00PM","09:00AM-10:00AM","10:30AM-12:00PM"]
-array2 = []
-array.each do |x|
-  array2<<x[0..6].to_s
-  array2<<x[8..14].to_s
+@array2 = []
+@array3 = []
+
+def parse(array)
+  array.each do |x|
+    @array2<<x[0..6].to_s
+    @array2<<x[8..14].to_s
+  end
 end
 
-array3 = []
-array2.each do |y|
-  array3<<Time.parse(y)
+def time_parse
+  @array2.each do |y|
+    @array3<<Time.parse(y)
+  end
 end
 
-
-def sort(val)
+def bubble_sort_vals
   switch = true
-  len = val.length-1
+  len = @array3.length-1
   while switch do
     i=0
     switch = false
     while i < len
       n=i+1
-      if val[i] > val[n]
-        bucket = val[i]
-        val[i] = val[n]
-        val[n] = bucket
+      if @array3[i] > @array3[n]
+        bucket = @array3[i]
+        @array3[i] = @array3[n]
+        @array3[n] = bucket
         switch = true
       end
       i+=1
     end
   end
-  array4=[]
-  test = val.each_cons(2).map { |a,b| ((b-a)/60)/100 }
-  test2=test.each_slice(2).map(&:last)
-  puts "The most time is #{test2[0..test2.length-2].max}"
-
-
 end
 
 
-sort (array3)
+def output_vals
+  test = @array3.each_cons(2).map { |a,b| (((b-a)/60)/60)}
+  test2=test.each_slice(2).map(&:last)
+  puts "The most time is #{test2[0..test2.length-2].max}"
+end
+
+
+
+parse (["10:00AM-12:30PM","02:00PM-02:45PM","09:10AM-09:50AM"])
+time_parse
+bubble_sort_vals
+output_vals
+
+
