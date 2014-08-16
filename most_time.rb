@@ -37,7 +37,7 @@ end
 
 
 def output_vals
-  test = @array3.each_cons(2).map { |a,b| (((b-a)/60)/60)}
+  test = @array3.each_cons(2).map { |a,b| (((b-a)/60)/100)}
   test2=test.each_slice(2).map(&:last)
   puts "The most time is #{test2[0..test2.length-2].max}"
 end
